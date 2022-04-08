@@ -1,0 +1,19 @@
+{
+  "name": "search-engine",
+  "version": "1.0.0",
+  "description": "Search engine with some logic (Basic API Index, Inverted index y Spelling correction)",
+  "main": "app.local.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgustinFourcade/search-engine.git"
+  },
+  "author": "Agustin Fourcade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AgustinFourcade/search-engine/issues"
+  },
+  "homepage": "https://github.com/AgustinFourcade/search-engine#readme"
+}
