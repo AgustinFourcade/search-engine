@@ -1,0 +1,2 @@
+# Ignore artifacts:
+# k8s/01-deployment.yml
