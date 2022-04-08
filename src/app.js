@@ -3,7 +3,7 @@ const compression = require("compression");
 const app = express();
 require("./config/initializers");
 
-// const autosuggest_route = require("./routes/autosuggest_route");
+const health_route = require("./routes/health_route");
 
 app.use(compression());
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.listen(3000)
 app.use(
   "/",
-  // autosuggest_route,
+  health_route,
 );
 
 // Export your express server so you can import it in the lambda function.
