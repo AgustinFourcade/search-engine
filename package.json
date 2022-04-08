@@ -4,7 +4,11 @@
   "description": "Search engine with some logic (Basic API Index, Inverted index y Spelling correction)",
   "main": "app.local.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.local.js",
+    "local": "node scripts/local",
+    "start": "node app.local.js",
+    "build": "webpack-cli",
+    "lint": "eslint \"{src,test}/**/*.js\" --fix"
   },
   "repository": {
     "type": "git",
@@ -15,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/AgustinFourcade/search-engine/issues"
   },
-  "homepage": "https://github.com/AgustinFourcade/search-engine#readme"
+  "homepage": "https://github.com/AgustinFourcade/search-engine#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  }
 }
