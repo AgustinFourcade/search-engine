@@ -8,7 +8,7 @@ const _invoque_method = async (req, res, callback) => {
     res.status(status).send(response);
     return { response, status };
   } catch (e) {
-    console.log("LOG: ", e.tag ? e.error.stack : e.stack, debugManager.debug);
+    console.log("LOG: ", e.tag ? e.error.stack : e.stack);
     res.status(500).send({ error: e.tag ? e.error.message : e.message });
   }
 };

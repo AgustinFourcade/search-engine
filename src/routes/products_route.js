@@ -4,8 +4,8 @@ const router = Router();
 const products_controller = require("../controllers/products_controller");
 
 router.get(
-  "/getTest",
-  products_controller.wrapped_method(products_controller.test)
+  "/products/create",
+  products_controller.wrapped_method(products_controller.create)
 );
 
 
