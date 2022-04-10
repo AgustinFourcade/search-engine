@@ -1,4 +1,4 @@
-const { processText } = require("../helpers/normalization_helper");
+const { processText, cleanWord } = require("../helpers/normalization_helper");
 const ProductWord = require("../models/product_word");
 const ProductViews = require("../models/product_view");
 const Word = require("../models/word");
@@ -14,7 +14,7 @@ const indexProducts = async (products = []) => {
           if (term.normalizedOutput) {
             let object = {
               product_id: product.id,
-              word: term.normalizedOutput,
+              word: cleanWord(term.normalizedOutput),
             };
             await ProductWord.findOneAndUpdate(object, object, {
               upsert: true,
