@@ -8,9 +8,4 @@ router.post(
   products_controller.wrapped_method(products_controller.index)
 );
 
-router.get(
-  "/products/create",
-  products_controller.wrapped_method(products_controller.create)
-);
-
 module.exports = router;

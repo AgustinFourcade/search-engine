@@ -1,7 +1,7 @@
 {
   "name": "search-engine",
   "version": "1.0.0",
-  "description": "Search engine with some logic (Basic API Index, Inverted index y Spelling correction) - Agustin Fourcade - April 2022",
+  "description": "Search engine with some logic (Basic API Index, Inverted index, SørensenDice coefficient, Spelling correction) - Agustin Fourcade - April 2022",
   "main": "app.local.js",
   "scripts": {
     "dev": "nodemon app.local.js",

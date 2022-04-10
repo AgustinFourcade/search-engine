@@ -15,19 +15,17 @@ const performSearch = async (params) => {
 
   //COLLECT PRODUCTS
   const arrayCombinatorialWords = [];
+  let searchIntersection = []
 
   if (words) {
     await combinatorialArrayWords(words, arrayCombinatorialWords);
+    searchIntersection.push(await performTextSearch(arrayCombinatorialWords))
   }
 
-  const textSearch =
-    words && (await performTextSearch(arrayCombinatorialWords));
-
   //SEARCHS INTERSECTION
-  let data = [textSearch];
-  data = data.filter((e) => e);
-  if (data.length > 0) {
-    response.all_product_ids = data.reduce((a, b) =>
+  searchIntersection = searchIntersection.filter((e) => e);
+  if (searchIntersection.length > 0) {
+    response.all_product_ids = searchIntersection.reduce((a, b) =>
       a.filter((c) => b.includes(c))
     );
   } else {
@@ -76,12 +74,12 @@ const performTextSearch = async (combinatorialWords, i = 0, results = []) => {
 
 const combinatorialArrayWords = async (words, arrayResult) => {
   for (let i = 0; i < words.length; i++) {
-    const arrayCombinaciones = [];
+    const arrayCombinations = [];
     const n = words.length - i;
-    combinatorial(words, n, arrayCombinaciones);
+    combinatorial(words, n, arrayCombinations);
 
-    for (let i2 = 0; i2 < arrayCombinaciones.length; i2++) {
-      const element = arrayCombinaciones[i2];
+    for (let i2 = 0; i2 < arrayCombinations.length; i2++) {
+      const element = arrayCombinations[i2];
       element.sort((a, b) => {
         return a.originalWord < b.originalWord
           ? -1
@@ -91,21 +89,21 @@ const combinatorialArrayWords = async (words, arrayResult) => {
       });
     }
 
-    const unicos = [];
-    for (let i2 = 0; i2 < arrayCombinaciones.length; i2++) {
-      const conjunctWords = arrayCombinaciones[i2];
+    const duplicates = [];
+    for (let i2 = 0; i2 < arrayCombinations.length; i2++) {
+      const conjunctWords = arrayCombinations[i2];
       let duplicate = false;
-      for (let compare of unicos) {
+      for (let compare of duplicates) {
         if (JSON.stringify(conjunctWords) === JSON.stringify(compare)) {
           duplicate = true;
         }
       }
       if (!duplicate) {
-        unicos.push(conjunctWords);
+        duplicates.push(conjunctWords);
       }
     }
-    await substanceValueOrder(unicos);
-    for (let element of unicos) {
+    await substanceValueOrder(duplicates);
+    for (let element of duplicates) {
       delete element.substance_value;
       arrayResult.push(element);
     }
