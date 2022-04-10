@@ -9,6 +9,8 @@ const index = async (req) => {
 
   response.views = await ProductViews.views(response.all_product_ids, view_name);
 
+  response.count = response.all_product_ids.length;
+  
   return { response };
 };
 
