@@ -1,5 +1,6 @@
 const { processText } = require("../helpers/normalization_helper");
 const Word = require("../models/word");
+const ProductWord = require("../models/product_word");
 
 const performSearch = async (params) => {
   const response = {};
@@ -26,9 +27,9 @@ const performSearch = async (params) => {
   let data = [textSearch];
   data = data.filter((e) => e);
   if (data.length > 0) {
-    response.all_product_ids = data
-      .reduce((a, b) => a.filter((c) => b.includes(c)))
-      .filter((id) => excluded_ids.indexOf(id) == -1);
+    response.all_product_ids = data.reduce((a, b) =>
+      a.filter((c) => b.includes(c))
+    );
   } else {
     response.all_product_ids = [];
   }
