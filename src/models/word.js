@@ -95,7 +95,6 @@ WordSchema.statics.saveWord = async function (term) {
   });
 };
 
-
 const generateBigrams = (word) => {
   word = "_" + cleanWord(word) + "_";
   var bigrams = [];
@@ -119,6 +118,46 @@ const cleanWord = (word) => {
   word = word.replace(/[^a-zA-Z0-9]/g, "");
 
   return word;
+};
+
+WordSchema.statics.spelling = async function (text) {
+  const bgrams = generateBigrams(text);
+  return (
+    await this.aggregate([
+      { $match: { bgrams: { $in: bgrams } } },
+      { $unwind: "$bgrams" },
+      { $match: { bgrams: { $in: bgrams } } },
+      {
+        $group: {
+          _id: "$word",
+          count: { $sum: 1 },
+          bgrams_length: { $first: "$bgrams_length" },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          count: 1,
+          bgrams_length: 1,
+          multiplier: { $multiply: ["$count", 2] },
+          divisor: { $sum: ["$bgrams_length", bgrams.length] },
+        },
+      },
+      {
+        $project: {
+          word: "$_id",
+          count: 1,
+          bgrams_length: 1,
+          multiplier: 1,
+          divisor: 1,
+          score: { $divide: ["$multiplier", "$divisor"] },
+        },
+      },
+      { $match: { score: { $gte: 0.6 } } },
+      { $sort: { score: -1 } },
+      { $limit: 1 },
+    ]).exec()
+  )[0];
 };
 
 module.exports = mongoose.model("Word", WordSchema);

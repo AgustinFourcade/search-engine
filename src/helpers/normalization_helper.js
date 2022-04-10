@@ -1,10 +1,28 @@
+const Word = require("../models/word");
+
 const processText = async (textString, correct_spelling = true) => {
   //TOKENIZE
   let words = tokenizeText(textString);
   //SPELLFIX
+  if (correct_spelling) {
+    words = await Promise.all(
+      words.map(async (word) => {
+        const spellfix =
+          word.cleanWord && (await Word.spelling(word.cleanWord));
 
+        word.isSpellfixed = false;
+        if (spellfix) {
+          word.newWord = spellfix.word;
+          word.innerTerms[0].originalTerm = word.newWord;
+          word.innerTerms[0].normalizedOutput = word.newWord;
+          word.isSpellfixed = spellfix.score != 1;
+        }
+
+        return word;
+      })
+    );
+  }
   //SYNONYMS
-
   //NORMALIZE
 
   return words;

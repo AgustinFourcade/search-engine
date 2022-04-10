@@ -1,4 +1,3 @@
-// const MD5 = require("crypto-js/md5");
 const { processText } = require("../helpers/normalization_helper");
 const ProductWord = require("../models/product_word");
 const ProductViews = require("../models/product_view");
@@ -26,17 +25,6 @@ const indexProducts = async (products = []) => {
         }
       }
     }
-
-    //PROCESS TAXONS
-    //PROCESS ATTRIBUTES
-    //PROCESS MEASUREMENTS
-    //NOVELTY MEASUREMENT
-    //CUSTOM MEASUREMENTS
-    //PRINT MEASUREMENTS
-    //VIEW MEASUREMENTS
-    //BUY MEASUREMENTS
-    //CHECKSUM cont
-
     //PROCESS VIEWS
     for (const view of product.views) {
       let object = {
