@@ -5,10 +5,6 @@ const ProductViews = require("../models/product_view");
 const Word = require("../models/word");
 
 const indexProducts = async (products = []) => {
-  await ProductWord.remove({});
-  await ProductViews.remove({});
-  await Word.remove({});
-
   const success = [];
   for (let product of products) {
     // PROCESS TEXTS
