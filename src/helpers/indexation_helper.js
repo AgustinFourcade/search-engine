@@ -4,7 +4,7 @@ const ProductViews = require("../models/product_view");
 const Word = require("../models/word");
 
 const indexProducts = async (products = []) => {
-  const success = [];
+  const response = [];
   for (let product of products) {
     // PROCESS TEXTS
     for (const text of product.texts) {
@@ -42,10 +42,10 @@ const indexProducts = async (products = []) => {
       );
     }
 
-    success.push(product);
+    response.push(product);
   }
 
-  return { success };
+  return { response };
 };
 
 module.exports = { indexProducts };

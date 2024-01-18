@@ -1,5 +1,5 @@
 const app = require("./src/app");
-const port = 3000;
+const API_PORT = process.env.API_PORT;
 
-app.listen(port);
-console.info(`🚀 Server started on http://localhost:${port}`);
+app.listen(API_PORT);
+console.info(`🚀 Server started on http://localhost:${API_PORT}`);
